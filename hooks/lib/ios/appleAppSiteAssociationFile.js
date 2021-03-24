@@ -88,14 +88,24 @@ function generateFileContentForHost(host, teamId) {
   if (paths.length == 1 && paths[0] === '*') {
     paths.push('/');
   }
+  
+  var components = [];
+  paths.forEach((individualPath)=>{
+    components.push({
+      "/" : individualPath
+    })
+  })
 
   return {
     "applinks": {
       "apps": [],
       "details": [{
-        "appID": appID,
-        "paths": paths
+        "appIDs": [appID],
+        "components": components,
       }]
+    },
+    "webcredentials": {
+      "apps": [ appID ]
     }
   };
 }
